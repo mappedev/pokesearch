@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
 
-function App() {
+import { usePokemon } from "./hooks/usePokemon";
+
+export default function App() {
+  const [id, setId] = useState("");
+  const { pokemon, loading, error } = usePokemon(id);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <label>Inserta el id del pokemon</label>
+      <input
+        type="number"
+        placeholder="Solo números"
+        value={id}
+        onChange={(evt) => setId(evt.target.value)}
+      />
+      <br />
+      {loading && "Loading..."}
+      {error && "Bad request"}
+      {pokemon?.name}
     </div>
   );
 }
-
-export default App;
